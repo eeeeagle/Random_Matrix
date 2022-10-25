@@ -2,10 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <windows.h>
 #include <conio.h>
-
-#define TIMEOUT 2000
 
 unsigned long str_to_ulong(const std::string& str)
 {
@@ -43,11 +40,9 @@ void random_file(const unsigned& columns, const unsigned& row, const unsigned& m
 			for (unsigned j = 0; j < row; j++)
 			{
 				ran.seed(++n);
-				file << ran() % max_value;
-				file << ' ';
+				file << ran() % max_value << ' ';
 			}
-			if(i < columns - 1)
-				file << '\n';
+			file << '\n';
 		}
 
 		file.close();
