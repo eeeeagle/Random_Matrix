@@ -25,7 +25,6 @@ unsigned long str_to_ulong(const std::string& str)
 		std::cout	<< "OUT OF RANGE: N = " << std::string(str) << "\n\n" 
 					<< ex.what() << '\n';
 	}
-	Sleep(TIMEOUT);
 	_exit(EXIT_FAILURE);
 }
 
@@ -47,7 +46,8 @@ void random_file(const unsigned& columns, const unsigned& row, const unsigned& m
 				file << ran() % max_value;
 				file << ' ';
 			}
-			file << '\n';
+			if(i < columns - 1)
+				file << '\n';
 		}
 
 		file.close();
@@ -55,7 +55,6 @@ void random_file(const unsigned& columns, const unsigned& row, const unsigned& m
 	catch (std::ios_base::failure const& ex)
 	{
 		std::cout << "WRITING ERROR: " << ex.what() << '\n';
-		Sleep(TIMEOUT);
 		_exit(EXIT_FAILURE);
 	}
 }
@@ -66,10 +65,9 @@ int main(int argc, char** argv)
 
 	if ((argc == 2 && std::string(argv[1]) == "-help") || argc > 5)
 	{
-		std::cout << "Specify columns, rows, max possible value, output file\n\n"
-			<< "EXAMPLE:\n"
-			<< "    .../RandomMarix.exe <columns> <rows> <max_value> <output_file>\n";
-		Sleep(TIMEOUT);
+		std::cout	<< "Specify columns, rows, max possible value, output file\n\n"
+					<< "EXAMPLE:\n"
+					<< "    .../RandomMarix.exe <columns> <rows> <max_value> <output_file>\n";
 		_exit(EXIT_FAILURE);
 	}
 
@@ -120,6 +118,5 @@ int main(int argc, char** argv)
 		std::cout << ' ';
 
 	std::cout << "\rSaved matrix in file [" << str << "]\n\n";
-	Sleep(TIMEOUT);
 	return 0;
 }
