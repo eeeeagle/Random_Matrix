@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <conio.h>
 
 unsigned long str_to_ulong(const std::string& str)
 {
@@ -58,59 +57,22 @@ int main(int argc, char** argv)
 {
 	system("title Random Matrix");
 
-	if ((argc == 2 && std::string(argv[1]) == "-help") || argc > 5)
+	if (argc != 5 || (argc == 2 && strcmp(argv[1], "--help") == 0))
 	{
-		std::cout	<< "Specify columns, rows, max possible value, output file\n\n"
+		std::cout	<< "Specify number of rows, columns, max possible value and locate path to output file\n\n"
 					<< "EXAMPLE:\n"
-					<< "    .../RandomMarix.exe <columns> <rows> <max_value> <output_file>\n";
+					<< "    .../RandomMarix.exe <rows> <columns> <max_value> <output_file>\n";
 		_exit(EXIT_FAILURE);
 	}
 
-	unsigned columns, rows, max_value;
-	std::string str;
-	if (argc == 5)
-	{
-		columns		= str_to_ulong(argv[1]);
-		rows		= str_to_ulong(argv[2]);
-		max_value	= str_to_ulong(argv[3]);
-		str			= argv[4];
-	}
-	else
-	{
-		std::cout << "  Columns: ";
-		std::cin >> str;
-		columns = str_to_ulong(str);
+	const unsigned columns		= str_to_ulong(argv[1]);
+	const unsigned rows			= str_to_ulong(argv[2]);
+	const unsigned max_value	= str_to_ulong(argv[3]);
+	const std::string str		= argv[4];
 
-		std::cout << "     Rows: ";
-		std::cin >> str;
-		rows = str_to_ulong(str);
-
-		std::cout << "Max value: ";
-		std::cin >> str;
-		max_value = str_to_ulong(str);
-
-		std::cout << "\nLocate path to output file? (Y/N)";
-		int key = 0;
-		do
-		{
-			key = _getch();
-			key = toupper(key);
-		} while (key != 'Y' && key != 'N');
-		std::cout << "\r                                    ";
-		if (key == 'Y')
-		{
-			std::cout << "\rLocate path to output file: ";
-			std::cin >> str;
-		}
-		else
-			str = "output.txt";
-	}
-
-	std::cout << "\rWriting random matrix to [" << str << "]...\r";
+	std::cout << "Writing random matrix to [" << str << "]...";
 	random_file(columns, rows, max_value, str);
-	std::cout << "\r                                ";
-	for (size_t i = str.size(); i > 0; i--)
-		std::cout << ' ';
+	std::cout << std::string(str.size() + 40, ' ');
 
 	std::cout << "\rSaved matrix in file [" << str << "]\n\n";
 	return 0;
