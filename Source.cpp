@@ -72,8 +72,8 @@ int main(int argc, char** argv)
 
 	std::cout << "Writing random matrix to [" << str << "]...";
 	random_file(columns, rows, max_value, str);
-	std::cout << std::string(str.size() + 40, ' ');
-
+	std::cout << '\r' << std::string(str.size() + 40, ' ');
 	std::cout << "\rSaved matrix in file [" << str << "]\n\n";
+	
 	return 0;
 }
